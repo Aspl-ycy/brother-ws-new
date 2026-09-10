@@ -1,0 +1,441 @@
+.about {
+  padding: var(--section-padding);
+  position: relative;
+  background: var(--bg-primary);
+}
+
+.about .molten-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Section Label ===== */
+.about-section-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 64px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.label-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(184, 255, 58, 0.5) 50%,
+    transparent 100%);
+}
+
+.label-text {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ===== Layout — balanced 1:1 ===== */
+.about-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* ===== Left: Bio Card ===== */
+.about-left {
+  display: flex;
+}
+
+.about-card {
+  background: linear-gradient(180deg, #131315 0%, #0e0e10 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 36px;
+  right: 36px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--accent) 0%,
+    rgba(184, 255, 58, 0.4) 30%,
+    transparent 100%);
+}
+
+.card-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+
+.card-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+  font-family: 'Noto Sans SC', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.text-name {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 700;
+}
+
+.card-desc {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+/* Bio list */
+.bio-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bio-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+}
+
+.bio-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  flex-shrink: 0;
+  border-radius: 1px;
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+.bio-key {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  min-width: 50px;
+}
+
+.bio-val {
+  color: var(--text-primary);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  transition: color 0.3s;
+}
+
+a.bio-val:hover {
+  color: var(--accent);
+}
+
+/* ===== Right: Portrait — selection frame style ===== */
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 80px;
+}
+
+.portrait-wrap {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Frame — sits on top of portrait, but top border goes behind the image */
+.portrait-frame {
+  position: absolute;
+  top: 16%;
+  left: 8%;
+  right: 18%;
+  bottom: 14%;
+  border-left: 2px solid rgba(255, 255, 255, 0.55);
+  border-right: 2px solid rgba(255, 255, 255, 0.55);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  border-top: none;
+  background: transparent;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Top border of the frame — behind the portrait image */
+.portrait-wrap::after {
+  content: '';
+  position: absolute;
+  top: 16%;
+  left: 8%;
+  right: 18%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.55);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Image fills the wrap — above the top border line */
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+
+.portrait-wrap:hover .portrait-img {
+  transform: scale(1.03);
+}
+
+/* Corner markers — solid green squares (positioned on portrait-frame) */
+.vf-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #d4ff3a;
+  box-shadow: 0 0 14px rgba(212, 255, 58, 0.6);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.vf-corner.tl { top: -6px; left: -6px; }
+.vf-corner.tr { top: -6px; right: -6px; }
+.vf-corner.bl { bottom: -6px; left: -6px; }
+.vf-corner.br { bottom: -6px; right: -6px; }
+
+/* Mid-side markers */
+.vf-mid {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  background: #d4ff3a;
+  box-shadow: 0 0 14px rgba(212, 255, 58, 0.6);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.vf-mid.top { display: none; }
+.vf-mid.bottom { bottom: -5px; left: 50%; transform: translateX(-50%); }
+.vf-mid.left { left: -5px; top: 50%; transform: translateY(-50%); }
+.vf-mid.right { right: -5px; top: 50%; transform: translateY(-50%); }
+
+/* Top-left soft/hard label */
+.portrait-soft-label {
+  display: none;
+}
+
+/* ===== Software badges — top-right of the frame, OVERLAP frame border ===== */
+.portrait-software {
+  position: absolute;
+  top: 11%;
+  right: 14%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 5;
+  align-items: center;
+}
+
+.sw-softwares-label {
+  position: absolute;
+  top: -22px;
+  left: -10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #d4ff3a;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  transform: rotate(-6deg);
+  text-shadow: 0 0 10px rgba(212, 255, 58, 0.5);
+  white-space: nowrap;
+  z-index: 5;
+  transform-origin: left center;
+}
+
+.sw-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 9px;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  position: relative;
+  transition: transform 0.25s ease;
+  background: #1a1a1c;
+}
+
+.sw-badge:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Connecting line between badges */
+.sw-badge:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 1px;
+  height: 12px;
+  background: rgba(184, 255, 58, 0.7);
+  transform: translateX(-50%);
+}
+
+/* Yellow arc arrow — curves from below icons back to portrait */
+.sw-arrow {
+  position: absolute;
+  top: 36%;
+  right: 18%;
+  width: 90px;
+  height: 50px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.sw-arrow svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Equipment tags — separate box below */
+.portrait-equip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.equip-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  padding: 7px 14px;
+  border: 1px solid rgba(184, 255, 58, 0.3);
+  background: rgba(184, 255, 58, 0.04);
+  font-weight: 400;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1100px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section-label {
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .label-line {
+    width: 32px;
+  }
+
+  .label-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+  }
+
+  .about-inner {
+    gap: 36px;
+  }
+
+  .about-card {
+    padding: 24px 20px;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+  }
+
+  .card-desc {
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  .bio-list li {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .bio-key {
+    min-width: 42px;
+    font-size: 0.78rem;
+  }
+
+  .bio-val {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .about-right {
+    padding-right: 0;
+    gap: 16px;
+  }
+
+  .portrait-software {
+    right: 8%;
+  }
+
+  .sw-softwares-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  .sw-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 7px;
+  }
+
+  .sw-arrow {
+    right: 10%;
+    width: 62px;
+    height: 36px;
+  }
+
+  .portrait-equip {
+    gap: 6px;
+  }
+
+  .equip-tag {
+    font-size: 0.62rem;
+    padding: 6px 10px;
+  }
+}
