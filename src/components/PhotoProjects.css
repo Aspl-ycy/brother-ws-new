@@ -172,13 +172,13 @@
 
 @media (max-width: 640px) {
   .pp-3d {
-    padding: 24px 0 56px;
+    padding: 16px 0 44px;
   }
 
   .pp-3d-stage {
-    --pp-radius: 360px;
-    height: 370px;
-    perspective: 690px;
+    --pp-radius: 210px;
+    height: 280px;
+    perspective: 680px;
   }
 
   .pp-nav {
@@ -196,10 +196,10 @@
   }
 
   .pp-carousel-item {
-    width: 140px;
-    height: 210px;
-    margin-left: -70px;
-    margin-top: -105px;
+    width: 112px;
+    height: 168px;
+    margin-left: -56px;
+    margin-top: -84px;
     border-radius: 10px;
   }
 

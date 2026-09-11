@@ -3,12 +3,6 @@ import './VideoProjects.css'
 import MoltenMetal from './MoltenMetal'
 import { sectionReveal, gsap } from './animations'
 
-const VIDEO_BASE_URL = (
-  import.meta.env.VITE_VIDEO_BASE_URL || '/videos/optimized'
-).replace(/\/+$/, '')
-
-const videoUrl = (filename) => `${VIDEO_BASE_URL}/${encodeURIComponent(filename)}`
-
 const categories = [
   {
     id: 'micro-film',
@@ -165,7 +159,7 @@ function MicroFilmViewer() {
           <video
             ref={videoRef}
             className="micro-film-video"
-            src={videoUrl('24毕业季流媒体版本.mp4')}
+            src="/videos/optimized/24毕业季流媒体版本.mp4"
             controls
             preload="metadata"
             autoPlay={playing}
@@ -266,7 +260,7 @@ function DocumentaryViewer() {
           <video
             ref={videoRef}
             className="micro-film-video"
-            src={videoUrl('documentary.mp4')}
+            src="/videos/optimized/documentary.mp4"
             controls
             preload="metadata"
             autoPlay={playing}
@@ -369,7 +363,7 @@ function MVViewer() {
           <video
             ref={videoRef}
             className="micro-film-video"
-            src={videoUrl('mv.mp4')}
+            src="/videos/optimized/mv.mp4"
             controls
             preload="metadata"
             autoPlay={playing}
@@ -382,9 +376,9 @@ function MVViewer() {
 }
 
 const commercialVideos = [
-  { id: 1, title: '东北小串', cover: '/images/commercial-cover-1.jpg', video: videoUrl('commercial-1.mp4') },
-  { id: 2, title: '真枪实弹', cover: '/images/commercial-cover-2.jpg', video: videoUrl('commercial-2.mp4') },
-  { id: 3, title: '老渔民', cover: '/images/commercial-cover-3.jpg', video: videoUrl('commercial-3.mp4') },
+  { id: 1, title: '东北小串', cover: '/images/commercial-cover-1.jpg', video: '/videos/optimized/commercial-1.mp4' },
+  { id: 2, title: '真枪实弹', cover: '/images/commercial-cover-2.jpg', video: '/videos/optimized/commercial-2.mp4' },
+  { id: 3, title: '老渔民', cover: '/images/commercial-cover-3.jpg', video: '/videos/optimized/commercial-3.mp4' },
 ]
 
 function CommercialViewer() {
@@ -461,9 +455,9 @@ function CommercialViewer() {
 }
 
 const ipVideos = [
-  { id: 1, title: '如何打败竞争对手', cover: '/images/ip-cover-1.jpg', video: videoUrl('ip-1.mp4') },
-  { id: 2, title: '海的那边是什么', cover: '/images/ip-cover-2.jpg', video: videoUrl('ip-2.mp4') },
-  { id: 3, title: '柯小欢米酒诞生地', cover: '/images/ip-cover-3.jpg', video: videoUrl('ip-3.mp4') },
+  { id: 1, title: '如何打败竞争对手', cover: '/images/ip-cover-1.jpg', video: '/videos/optimized/ip-1.mp4' },
+  { id: 2, title: '海的那边是什么', cover: '/images/ip-cover-2.jpg', video: '/videos/optimized/ip-2.mp4' },
+  { id: 3, title: '柯小欢米酒诞生地', cover: '/images/ip-cover-3.jpg', video: '/videos/optimized/ip-3.mp4' },
 ]
 
 function IPViewer() {

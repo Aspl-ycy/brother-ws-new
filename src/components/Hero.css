@@ -494,6 +494,11 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: max(100svh, 680px);
+    padding: 80px 20px 48px;
+  }
+
   .hero-frame {
     aspect-ratio: auto;
     min-height: 360px;
@@ -640,41 +645,112 @@
   }
 
   .hero-slogan-row {
-    gap: 12px;
-    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
   }
 
-  .hero-slogan {
-    font-size: 0.62rem;
+  .slogan-text {
+    font-size: 0.78rem;
     letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  .slogan-arrow {
+    font-size: 0.8rem;
   }
 
   .hero-hint {
-    gap: 12px;
-    font-size: 0.58rem;
+    width: 100%;
+    gap: 8px;
   }
 
-  .hero-hint::before,
-  .hero-hint::after {
+  .hint-deco {
+    max-width: 62%;
+    overflow: hidden;
+    font-size: 0.5rem;
+    letter-spacing: 0.16em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hint-line {
     width: 28px;
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: max(100svh, 620px);
+    padding: 74px 16px 42px;
+  }
+
+  .hero-frame {
+    min-height: 360px;
+    padding: 28px 16px 24px;
+  }
+
+  .frame-label {
+    top: 18px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .frame-label-en {
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+  }
+
+  .title-line-1 {
+    font-size: clamp(3.5rem, 18vw, 4.6rem);
+  }
+
+  .title-line-2 {
+    font-size: clamp(1.85rem, 9.5vw, 2.7rem);
+    letter-spacing: 0.02em;
+  }
+
+  .frame-year {
+    margin-top: 18px;
+    padding: 6px 14px;
+  }
+
+  .frame-year-text {
+    font-size: 0.72rem;
+  }
+
+  .hero-slogan-row {
+    margin-top: 36px;
+    gap: 7px;
+  }
+
+  .slogan-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hint-deco {
+    max-width: 68%;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-scroll {
+    bottom: 18px;
   }
 }
 
 @media (max-width: 380px) {
-  .hero {
-    padding-inline: 16px;
-  }
-
   .hero-frame {
-    min-height: 370px;
-    padding-inline: 16px;
+    min-height: 340px;
   }
 
   .title-line-1 {
-    font-size: 4rem;
+    font-size: 3.3rem;
   }
 
   .title-line-2 {
-    font-size: 2.05rem;
+    font-size: 1.75rem;
   }
 }

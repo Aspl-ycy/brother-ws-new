@@ -405,12 +405,18 @@ a.bio-val:hover {
   }
 
   .about-right {
+    width: 100%;
     padding-right: 0;
     gap: 16px;
   }
 
+  .portrait-wrap {
+    width: min(100%, 360px);
+    margin: 0 auto;
+  }
+
   .portrait-software {
-    right: 8%;
+    right: 6%;
   }
 
   .sw-softwares-label {
