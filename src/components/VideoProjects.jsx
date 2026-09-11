@@ -3,6 +3,12 @@ import './VideoProjects.css'
 import MoltenMetal from './MoltenMetal'
 import { sectionReveal, gsap } from './animations'
 
+const VIDEO_BASE_URL = (
+    import.meta.env.VITE_VIDEO_BASE_URL || '/videos/optimized'
+).replace(/\/+$/, '')
+
+const videoUrl = (filename) => `${VIDEO_BASE_URL}/${encodeURIComponent(filename)}`
+
 const categories = [
   {
     id: 'micro-film',
@@ -91,83 +97,83 @@ function MicroFilmViewer() {
   }, [])
 
   return (
-    <div className="micro-film-viewer">
-      <div className="micro-film-bg" aria-label="微电影封面">
-        {microFilmSlides.map((src, i) => (
-          <div
-            key={src}
-            className={`micro-film-bg-layer ${activeIndex === i ? 'active' : ''}`}
-            style={{ backgroundImage: `url(${src})` }}
-          />
-        ))}
-      </div>
+      <div className="micro-film-viewer">
+        <div className="micro-film-bg" aria-label="微电影封面">
+          {microFilmSlides.map((src, i) => (
+              <div
+                  key={src}
+                  className={`micro-film-bg-layer ${activeIndex === i ? 'active' : ''}`}
+                  style={{ backgroundImage: `url(${src})` }}
+              />
+          ))}
+        </div>
 
-      <div className="micro-film-play-wrap">
-        <button
-          type="button"
-          className="micro-film-play"
-          onClick={openPlayer}
-          aria-label="播放微电影"
-        >
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5,3 19,12 5,21" />
-          </svg>
-        </button>
-        <span className="micro-film-play-text">播放</span>
-      </div>
-
-      <div className="micro-film-credits">
-        <span className="micro-film-credits-role">编剧</span>
-        <span className="micro-film-credits-dot">·</span>
-        <span className="micro-film-credits-role">摄影</span>
-        <span className="micro-film-credits-dot">·</span>
-        <span className="micro-film-credits-role">剪辑</span>
-        <span className="micro-film-credits-name">王松</span>
-      </div>
-
-      <div
-        className="micro-film-thumbs"
-        onMouseLeave={() => setActiveIndex(0)}
-      >
-        {microFilmThumbs.map((src, i) => (
-          <div
-            key={src}
-            className={`micro-film-thumb ${activeIndex === i + 1 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(i + 1)}
+        <div className="micro-film-play-wrap">
+          <button
+              type="button"
+              className="micro-film-play"
+              onClick={openPlayer}
+              aria-label="播放微电影"
           >
-            <img src={src} alt={`微电影画面 ${i + 1}`} />
-          </div>
-        ))}
-      </div>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5,3 19,12 5,21" />
+            </svg>
+          </button>
+          <span className="micro-film-play-text">播放</span>
+        </div>
 
-      {/* 视频播放器浮层 */}
-      <div
-        className={`micro-film-player ${playing ? 'open' : ''}`}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) closePlayer()
-        }}
-      >
-        <button
-          type="button"
-          className="micro-film-player-close"
-          onClick={closePlayer}
-          aria-label="关闭播放器"
+        <div className="micro-film-credits">
+          <span className="micro-film-credits-role">编剧</span>
+          <span className="micro-film-credits-dot">·</span>
+          <span className="micro-film-credits-role">摄影</span>
+          <span className="micro-film-credits-dot">·</span>
+          <span className="micro-film-credits-role">剪辑</span>
+          <span className="micro-film-credits-name">王松</span>
+        </div>
+
+        <div
+            className="micro-film-thumbs"
+            onMouseLeave={() => setActiveIndex(0)}
         >
-          ✕
-        </button>
-        {hasOpened && (
-          <video
-            ref={videoRef}
-            className="micro-film-video"
-            src="/videos/optimized/24毕业季流媒体版本.mp4"
-            controls
-            preload="metadata"
-            autoPlay={playing}
-            playsInline
-          />
-        )}
+          {microFilmThumbs.map((src, i) => (
+              <div
+                  key={src}
+                  className={`micro-film-thumb ${activeIndex === i + 1 ? 'active' : ''}`}
+                  onMouseEnter={() => setActiveIndex(i + 1)}
+              >
+                <img src={src} alt={`微电影画面 ${i + 1}`} />
+              </div>
+          ))}
+        </div>
+
+        {/* 视频播放器浮层 */}
+        <div
+            className={`micro-film-player ${playing ? 'open' : ''}`}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closePlayer()
+            }}
+        >
+          <button
+              type="button"
+              className="micro-film-player-close"
+              onClick={closePlayer}
+              aria-label="关闭播放器"
+          >
+            ✕
+          </button>
+          {hasOpened && (
+              <video
+                  ref={videoRef}
+                  className="micro-film-video"
+                  src={videoUrl('24毕业季流媒体版本.mp4')}
+                  controls
+                  preload="metadata"
+                  autoPlay={playing}
+                  playsInline
+              />
+          )}
+        </div>
       </div>
-    </div>
   )
 }
 
@@ -196,79 +202,79 @@ function DocumentaryViewer() {
   }, [])
 
   return (
-    <div className="micro-film-viewer">
-      <div className="micro-film-bg" aria-label="纪录片封面">
-        {documentarySlides.map((src, i) => (
-          <div
-            key={src}
-            className={`micro-film-bg-layer ${activeIndex === i ? 'active' : ''}`}
-            style={{ backgroundImage: `url(${src})` }}
-          />
-        ))}
-      </div>
+      <div className="micro-film-viewer">
+        <div className="micro-film-bg" aria-label="纪录片封面">
+          {documentarySlides.map((src, i) => (
+              <div
+                  key={src}
+                  className={`micro-film-bg-layer ${activeIndex === i ? 'active' : ''}`}
+                  style={{ backgroundImage: `url(${src})` }}
+              />
+          ))}
+        </div>
 
-      <div className="micro-film-play-wrap">
-        <button
-          type="button"
-          className="micro-film-play"
-          onClick={openPlayer}
-          aria-label="播放纪录片"
-        >
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5,3 19,12 5,21" />
-          </svg>
-        </button>
-        <span className="micro-film-play-text">播放</span>
-      </div>
-
-      <div className="micro-film-credits">
-        <span className="micro-film-credits-role">摄影</span>
-        <span className="micro-film-credits-name">王松</span>
-      </div>
-
-      <div
-        className="micro-film-thumbs"
-        onMouseLeave={() => setActiveIndex(0)}
-      >
-        {documentaryThumbs.map((src, i) => (
-          <div
-            key={src}
-            className={`micro-film-thumb ${activeIndex === i + 1 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(i + 1)}
+        <div className="micro-film-play-wrap">
+          <button
+              type="button"
+              className="micro-film-play"
+              onClick={openPlayer}
+              aria-label="播放纪录片"
           >
-            <img src={src} alt={`纪录片画面 ${i + 1}`} />
-          </div>
-        ))}
-      </div>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5,3 19,12 5,21" />
+            </svg>
+          </button>
+          <span className="micro-film-play-text">播放</span>
+        </div>
 
-      {/* 视频播放器浮层 */}
-      <div
-        className={`micro-film-player ${playing ? 'open' : ''}`}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) closePlayer()
-        }}
-      >
-        <button
-          type="button"
-          className="micro-film-player-close"
-          onClick={closePlayer}
-          aria-label="关闭播放器"
+        <div className="micro-film-credits">
+          <span className="micro-film-credits-role">摄影</span>
+          <span className="micro-film-credits-name">王松</span>
+        </div>
+
+        <div
+            className="micro-film-thumbs"
+            onMouseLeave={() => setActiveIndex(0)}
         >
-          ✕
-        </button>
-        {hasOpened && (
-          <video
-            ref={videoRef}
-            className="micro-film-video"
-            src="/videos/optimized/documentary.mp4"
-            controls
-            preload="metadata"
-            autoPlay={playing}
-            playsInline
-          />
-        )}
+          {documentaryThumbs.map((src, i) => (
+              <div
+                  key={src}
+                  className={`micro-film-thumb ${activeIndex === i + 1 ? 'active' : ''}`}
+                  onMouseEnter={() => setActiveIndex(i + 1)}
+              >
+                <img src={src} alt={`纪录片画面 ${i + 1}`} />
+              </div>
+          ))}
+        </div>
+
+        {/* 视频播放器浮层 */}
+        <div
+            className={`micro-film-player ${playing ? 'open' : ''}`}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closePlayer()
+            }}
+        >
+          <button
+              type="button"
+              className="micro-film-player-close"
+              onClick={closePlayer}
+              aria-label="关闭播放器"
+          >
+            ✕
+          </button>
+          {hasOpened && (
+              <video
+                  ref={videoRef}
+                  className="micro-film-video"
+                  src={videoUrl('documentary.mp4')}
+                  controls
+                  preload="metadata"
+                  autoPlay={playing}
+                  playsInline
+              />
+          )}
+        </div>
       </div>
-    </div>
   )
 }
 
@@ -297,88 +303,88 @@ function MVViewer() {
   }, [])
 
   return (
-    <div className="micro-film-viewer">
-      <div className="micro-film-bg" aria-label="MV封面">
-        {mvSlides.map((src, i) => (
-          <div
-            key={src}
-            className={`micro-film-bg-layer ${activeIndex === i ? 'active' : ''}`}
-            style={{ backgroundImage: `url(${src})` }}
-          />
-        ))}
-      </div>
+      <div className="micro-film-viewer">
+        <div className="micro-film-bg" aria-label="MV封面">
+          {mvSlides.map((src, i) => (
+              <div
+                  key={src}
+                  className={`micro-film-bg-layer ${activeIndex === i ? 'active' : ''}`}
+                  style={{ backgroundImage: `url(${src})` }}
+              />
+          ))}
+        </div>
 
-      <div className="micro-film-play-wrap">
-        <button
-          type="button"
-          className="micro-film-play"
-          onClick={openPlayer}
-          aria-label="播放MV"
-        >
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5,3 19,12 5,21" />
-          </svg>
-        </button>
-        <span className="micro-film-play-text">播放</span>
-      </div>
-
-      <div className="micro-film-credits">
-        <span className="micro-film-credits-role">摄影</span>
-        <span className="micro-film-credits-dot">·</span>
-        <span className="micro-film-credits-role">剪辑</span>
-        <span className="micro-film-credits-name">王松</span>
-      </div>
-
-      <div
-        className="micro-film-thumbs"
-        onMouseLeave={() => setActiveIndex(0)}
-      >
-        {mvThumbs.map((src, i) => (
-          <div
-            key={src}
-            className={`micro-film-thumb ${activeIndex === i + 1 ? 'active' : ''}`}
-            onMouseEnter={() => setActiveIndex(i + 1)}
+        <div className="micro-film-play-wrap">
+          <button
+              type="button"
+              className="micro-film-play"
+              onClick={openPlayer}
+              aria-label="播放MV"
           >
-            <img src={src} alt={`MV画面 ${i + 1}`} />
-          </div>
-        ))}
-      </div>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5,3 19,12 5,21" />
+            </svg>
+          </button>
+          <span className="micro-film-play-text">播放</span>
+        </div>
 
-      {/* 视频播放器浮层 */}
-      <div
-        className={`micro-film-player ${playing ? 'open' : ''}`}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) closePlayer()
-        }}
-      >
-        <button
-          type="button"
-          className="micro-film-player-close"
-          onClick={closePlayer}
-          aria-label="关闭播放器"
+        <div className="micro-film-credits">
+          <span className="micro-film-credits-role">摄影</span>
+          <span className="micro-film-credits-dot">·</span>
+          <span className="micro-film-credits-role">剪辑</span>
+          <span className="micro-film-credits-name">王松</span>
+        </div>
+
+        <div
+            className="micro-film-thumbs"
+            onMouseLeave={() => setActiveIndex(0)}
         >
-          ✕
-        </button>
-        {hasOpened && (
-          <video
-            ref={videoRef}
-            className="micro-film-video"
-            src="/videos/optimized/mv.mp4"
-            controls
-            preload="metadata"
-            autoPlay={playing}
-            playsInline
-          />
-        )}
+          {mvThumbs.map((src, i) => (
+              <div
+                  key={src}
+                  className={`micro-film-thumb ${activeIndex === i + 1 ? 'active' : ''}`}
+                  onMouseEnter={() => setActiveIndex(i + 1)}
+              >
+                <img src={src} alt={`MV画面 ${i + 1}`} />
+              </div>
+          ))}
+        </div>
+
+        {/* 视频播放器浮层 */}
+        <div
+            className={`micro-film-player ${playing ? 'open' : ''}`}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closePlayer()
+            }}
+        >
+          <button
+              type="button"
+              className="micro-film-player-close"
+              onClick={closePlayer}
+              aria-label="关闭播放器"
+          >
+            ✕
+          </button>
+          {hasOpened && (
+              <video
+                  ref={videoRef}
+                  className="micro-film-video"
+                  src={videoUrl('mv.mp4')}
+                  controls
+                  preload="metadata"
+                  autoPlay={playing}
+                  playsInline
+              />
+          )}
+        </div>
       </div>
-    </div>
   )
 }
 
 const commercialVideos = [
-  { id: 1, title: '东北小串', cover: '/images/commercial-cover-1.jpg', video: '/videos/optimized/commercial-1.mp4' },
-  { id: 2, title: '真枪实弹', cover: '/images/commercial-cover-2.jpg', video: '/videos/optimized/commercial-2.mp4' },
-  { id: 3, title: '老渔民', cover: '/images/commercial-cover-3.jpg', video: '/videos/optimized/commercial-3.mp4' },
+  { id: 1, title: '东北小串', cover: '/images/commercial-cover-1.jpg', video: videoUrl('commercial-1.mp4') },
+  { id: 2, title: '真枪实弹', cover: '/images/commercial-cover-2.jpg', video: videoUrl('commercial-2.mp4') },
+  { id: 3, title: '老渔民', cover: '/images/commercial-cover-3.jpg', video: videoUrl('commercial-3.mp4') },
 ]
 
 function CommercialViewer() {
@@ -407,57 +413,57 @@ function CommercialViewer() {
   }, [])
 
   return (
-    <>
-      <div className="vp-grid-ip">
-        {commercialVideos.map((item) => (
-          <div className="vp-card-ip" key={item.id}>
-            <div className="vp-card-ip-cover vp-card-ip-cover-filled">
-              <img src={item.cover} alt={item.title} />
-              <button type="button" className="vp-card-ip-play" aria-label="播放" onClick={() => openPlayer(item.video)}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
-              </button>
-            </div>
-            <h3 className="vp-card-ip-title">{item.title}</h3>
-          </div>
-        ))}
-      </div>
+      <>
+        <div className="vp-grid-ip">
+          {commercialVideos.map((item) => (
+              <div className="vp-card-ip" key={item.id}>
+                <div className="vp-card-ip-cover vp-card-ip-cover-filled">
+                  <img src={item.cover} alt={item.title} />
+                  <button type="button" className="vp-card-ip-play" aria-label="播放" onClick={() => openPlayer(item.video)}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg>
+                  </button>
+                </div>
+                <h3 className="vp-card-ip-title">{item.title}</h3>
+              </div>
+          ))}
+        </div>
 
-      {/* 视频播放器浮层 */}
-      <div
-        className={`micro-film-player ${playing ? 'open' : ''}`}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) closePlayer()
-        }}
-      >
-        <button
-          type="button"
-          className="micro-film-player-close"
-          onClick={closePlayer}
-          aria-label="关闭播放器"
+        {/* 视频播放器浮层 */}
+        <div
+            className={`micro-film-player ${playing ? 'open' : ''}`}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closePlayer()
+            }}
         >
-          ✕
-        </button>
-        {hasOpened && (
-          <video
-            ref={videoRef}
-            className="micro-film-video"
-            src={videoSrc}
-            autoPlay={playing}
-            controls
-            playsInline
-          />
-        )}
-      </div>
-    </>
+          <button
+              type="button"
+              className="micro-film-player-close"
+              onClick={closePlayer}
+              aria-label="关闭播放器"
+          >
+            ✕
+          </button>
+          {hasOpened && (
+              <video
+                  ref={videoRef}
+                  className="micro-film-video"
+                  src={videoSrc}
+                  autoPlay={playing}
+                  controls
+                  playsInline
+              />
+          )}
+        </div>
+      </>
   )
 }
 
 const ipVideos = [
-  { id: 1, title: '如何打败竞争对手', cover: '/images/ip-cover-1.jpg', video: '/videos/optimized/ip-1.mp4' },
-  { id: 2, title: '海的那边是什么', cover: '/images/ip-cover-2.jpg', video: '/videos/optimized/ip-2.mp4' },
-  { id: 3, title: '柯小欢米酒诞生地', cover: '/images/ip-cover-3.jpg', video: '/videos/optimized/ip-3.mp4' },
+  { id: 1, title: '如何打败竞争对手', cover: '/images/ip-cover-1.jpg', video: videoUrl('ip-1.mp4') },
+  { id: 2, title: '海的那边是什么', cover: '/images/ip-cover-2.jpg', video: videoUrl('ip-2.mp4') },
+  { id: 3, title: '柯小欢米酒诞生地', cover: '/images/ip-cover-3.jpg', video: videoUrl('ip-3.mp4') },
 ]
 
 function IPViewer() {
@@ -486,49 +492,49 @@ function IPViewer() {
   }, [])
 
   return (
-    <>
-      <div className="vp-grid-ip">
-        {ipVideos.map((item) => (
-          <div className="vp-card-ip" key={item.id}>
-            <div className="vp-card-ip-cover vp-card-ip-cover-filled">
-              <img src={item.cover} alt={item.title} />
-              <button type="button" className="vp-card-ip-play" aria-label="播放" onClick={() => openPlayer(item.video)}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
-              </button>
-            </div>
-            <h3 className="vp-card-ip-title">{item.title}</h3>
-          </div>
-        ))}
-      </div>
+      <>
+        <div className="vp-grid-ip">
+          {ipVideos.map((item) => (
+              <div className="vp-card-ip" key={item.id}>
+                <div className="vp-card-ip-cover vp-card-ip-cover-filled">
+                  <img src={item.cover} alt={item.title} />
+                  <button type="button" className="vp-card-ip-play" aria-label="播放" onClick={() => openPlayer(item.video)}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg>
+                  </button>
+                </div>
+                <h3 className="vp-card-ip-title">{item.title}</h3>
+              </div>
+          ))}
+        </div>
 
-      <div
-        className={`micro-film-player ${playing ? 'open' : ''}`}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) closePlayer()
-        }}
-      >
-        <button
-          type="button"
-          className="micro-film-player-close"
-          onClick={closePlayer}
-          aria-label="关闭播放器"
+        <div
+            className={`micro-film-player ${playing ? 'open' : ''}`}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closePlayer()
+            }}
         >
-          ✕
-        </button>
-        {hasOpened && (
-          <video
-            ref={videoRef}
-            className="micro-film-video"
-            src={videoSrc}
-            autoPlay={playing}
-            controls
-            playsInline
-          />
-        )}
-      </div>
-    </>
+          <button
+              type="button"
+              className="micro-film-player-close"
+              onClick={closePlayer}
+              aria-label="关闭播放器"
+          >
+            ✕
+          </button>
+          {hasOpened && (
+              <video
+                  ref={videoRef}
+                  className="micro-film-video"
+                  src={videoSrc}
+                  autoPlay={playing}
+                  controls
+                  playsInline
+              />
+          )}
+        </div>
+      </>
   )
 }
 
@@ -569,18 +575,18 @@ export default function VideoProjects() {
         // 新内容渲染后再做进场动画
         requestAnimationFrame(() => {
           gsap.fromTo(el,
-            { opacity: 0, y: 18, filter: 'blur(4px)' },
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.35, ease: 'expo.out',
-              onComplete: () => {
-                const nextId = pendingIdRef.current
-                pendingIdRef.current = null
-                isAnimatingRef.current = false
-                // 如果切换期间又有新请求，立即执行最后一个目标
-                if (nextId && nextId !== id) {
-                  switchTo(nextId)
+              { opacity: 0, y: 18, filter: 'blur(4px)' },
+              { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.35, ease: 'expo.out',
+                onComplete: () => {
+                  const nextId = pendingIdRef.current
+                  pendingIdRef.current = null
+                  isAnimatingRef.current = false
+                  // 如果切换期间又有新请求，立即执行最后一个目标
+                  if (nextId && nextId !== id) {
+                    switchTo(nextId)
+                  }
                 }
               }
-            }
           )
         })
       }
@@ -617,112 +623,112 @@ export default function VideoProjects() {
   const isIP = activeId === 'ip'
 
   return (
-    <section className="video-projects" id="video" ref={sectionRef}>
-      <div className="molten-bg">
-        <MoltenMetal
-          color1="#0a1a0b"
-          color2="#b8ff3a"
-          color3="#FFFFFF"
-          speed={0.18}
-          scale={2}
-          detail={2}
-          glow={1.0}
-          coreSize={0.08}
-          swirl={0.6}
-          fold={-0.12}
-          blackPoint={0.2}
-          brightness={0.5}
-          colorMode="molten"
-          grain={false}
-          grainIntensity={0}
-          mouseInteraction={false}
-          mouseStrength={0}
-          opacity={0.35}
-          maxDpr={1}
-        />
-      </div>
-      <div className="container">
-        <div className="vp-header">
-          <div className="section-label">VIDEO WORKS</div>
-          <h2 className="section-title">视频作品</h2>
-          <p className="section-desc">
-            从商业品牌到人文纪实，每一部作品都承载着对影像叙事的深度理解。
-          </p>
+      <section className="video-projects" id="video" ref={sectionRef}>
+        <div className="molten-bg">
+          <MoltenMetal
+              color1="#0a1a0b"
+              color2="#b8ff3a"
+              color3="#FFFFFF"
+              speed={0.18}
+              scale={2}
+              detail={2}
+              glow={1.0}
+              coreSize={0.08}
+              swirl={0.6}
+              fold={-0.12}
+              blackPoint={0.2}
+              brightness={0.5}
+              colorMode="molten"
+              grain={false}
+              grainIntensity={0}
+              mouseInteraction={false}
+              mouseStrength={0}
+              opacity={0.35}
+              maxDpr={1}
+          />
         </div>
+        <div className="container">
+          <div className="vp-header">
+            <div className="section-label">VIDEO WORKS</div>
+            <h2 className="section-title">视频作品</h2>
+            <p className="section-desc">
+              从商业品牌到人文纪实，每一部作品都承载着对影像叙事的深度理解。
+            </p>
+          </div>
 
-        <div className="vp-layout">
-          {/* ===== 左侧导航 ===== */}
-          <nav className="vp-nav">
-            {categories.map((cat, i) => (
-              <button
-                key={cat.id}
-                type="button"
-                className={`vp-nav-item ${activeId === cat.id ? 'active' : ''}`}
-                onMouseEnter={() => switchTo(cat.id)}
-                onFocus={() => switchTo(cat.id)}
-                onClick={() => switchTo(cat.id)}
-              >
-                <span className="vp-nav-index">{String(i + 1).padStart(2, '0')}</span>
-                <span className="vp-nav-text">
+          <div className="vp-layout">
+            {/* ===== 左侧导航 ===== */}
+            <nav className="vp-nav">
+              {categories.map((cat, i) => (
+                  <button
+                      key={cat.id}
+                      type="button"
+                      className={`vp-nav-item ${activeId === cat.id ? 'active' : ''}`}
+                      onMouseEnter={() => switchTo(cat.id)}
+                      onFocus={() => switchTo(cat.id)}
+                      onClick={() => switchTo(cat.id)}
+                  >
+                    <span className="vp-nav-index">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="vp-nav-text">
                   <span className="vp-nav-label">{cat.label}</span>
                   <span className="vp-nav-en">{cat.en}</span>
                 </span>
-                <span className="vp-nav-arrow">→</span>
-              </button>
-            ))}
-          </nav>
+                    <span className="vp-nav-arrow">→</span>
+                  </button>
+              ))}
+            </nav>
 
-          {/* ===== 右侧内容区 ===== */}
-          <div className="vp-content" ref={contentRef}>
-            {isMicroFilm ? (
-              <MicroFilmViewer />
-            ) : isDocumentary ? (
-              <DocumentaryViewer />
-            ) : isMV ? (
-              <MVViewer />
-            ) : isCommercial ? (
-              <CommercialViewer />
-            ) : isIP ? (
-              <IPViewer />
-            ) : (
-              <>
-                <div className="vp-content-head" key={active.id}>
-                  <div className="vp-content-title-group">
-                    <h3 className="vp-content-title">{active.label}</h3>
-                    <span className="vp-content-en">{active.en}</span>
-                  </div>
-                  <p className="vp-content-desc">{active.desc}</p>
-                </div>
-
-                <div className="vp-grid" key={`${active.id}-grid`}>
-                  {[0, 1, 2, 3].map((n) => (
-                    <div className="vp-card vp-card-placeholder visible" key={n}>
-                      <div className="vp-card-image vp-card-image-empty">
-                        <div className="vp-card-play">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5,3 19,12 5,21" />
-                          </svg>
-                        </div>
-                        <div className="vp-card-overlay"></div>
+            {/* ===== 右侧内容区 ===== */}
+            <div className="vp-content" ref={contentRef}>
+              {isMicroFilm ? (
+                  <MicroFilmViewer />
+              ) : isDocumentary ? (
+                  <DocumentaryViewer />
+              ) : isMV ? (
+                  <MVViewer />
+              ) : isCommercial ? (
+                  <CommercialViewer />
+              ) : isIP ? (
+                  <IPViewer />
+              ) : (
+                  <>
+                    <div className="vp-content-head" key={active.id}>
+                      <div className="vp-content-title-group">
+                        <h3 className="vp-content-title">{active.label}</h3>
+                        <span className="vp-content-en">{active.en}</span>
                       </div>
-                      <div className="vp-card-info">
-                        <div className="vp-card-meta">
-                          <span className="vp-card-category">{active.label}</span>
-                          <span className="vp-card-id">/{String(n + 1).padStart(2, '0')}</span>
-                        </div>
-                        <h3 className="vp-card-title vp-card-title-empty">
-                          {n === 0 ? `${active.label}作品整理中` : '待补充'}
-                        </h3>
-                        <p className="vp-card-desc">作品信息整理后将在此展示</p>
-                      </div>
+                      <p className="vp-content-desc">{active.desc}</p>
                     </div>
-                  ))}
-                </div>
-              </>
-            )}
+
+                    <div className="vp-grid" key={`${active.id}-grid`}>
+                      {[0, 1, 2, 3].map((n) => (
+                          <div className="vp-card vp-card-placeholder visible" key={n}>
+                            <div className="vp-card-image vp-card-image-empty">
+                              <div className="vp-card-play">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                  <polygon points="5,3 19,12 5,21" />
+                                </svg>
+                              </div>
+                              <div className="vp-card-overlay"></div>
+                            </div>
+                            <div className="vp-card-info">
+                              <div className="vp-card-meta">
+                                <span className="vp-card-category">{active.label}</span>
+                                <span className="vp-card-id">/{String(n + 1).padStart(2, '0')}</span>
+                              </div>
+                              <h3 className="vp-card-title vp-card-title-empty">
+                                {n === 0 ? `${active.label}作品整理中` : '待补充'}
+                              </h3>
+                              <p className="vp-card-desc">作品信息整理后将在此展示</p>
+                            </div>
+                          </div>
+                      ))}
+                    </div>
+                  </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   )
 }
